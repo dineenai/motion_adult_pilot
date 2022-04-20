@@ -51,8 +51,8 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
     print(f"getdur: {dur}")
 
     #### NB remember to revert to 'Scan' for scan... ####
-    vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Test', wait_msg='waiting for scanner ...')
-    # vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Scan', wait_msg='waiting for scanner ...')
+    # vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Test', wait_msg='waiting for scanner ...')
+    vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Scan', wait_msg='waiting for scanner ...')
 
     # Initialize components for Routine "trial"
     trialClock = core.Clock()
@@ -60,14 +60,36 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
     endExpNow = False  # flag for 'escape' or other condition => quit the exp
     frameTolerance = 0.001
 
+    # circle = visual.Circle(
+    #     win=win,
+    #     name='circle', units='pix', 
+    #     ori=0, pos=(0, 0), size=1.0, radius=1.5,
+    #     lineColor='white',
+    #     lineWidth=6.0
+    #     # fillColor= 'yellow')
+    #     )
+
     circle = visual.Circle(
         win=win,
         name='circle', units='pix', 
-        ori=0, pos=(0, 0), size=1.0, radius=1.5,
+        ori=0,
+        # pos=(0, 0),
+        pos=centrepos,
+        size=1.0, radius=1.5,
         lineColor='white',
-        lineWidth=6.0
+        lineWidth=6.0,
+        
         # fillColor= 'yellow')
         )
+
+    # circle = visual.Circle(
+    #     win=win,
+    #     name='circle', units='pix', 
+    #     size=1.0, radius=1.5,
+    #     lineColor='white',
+    #     lineWidth=6.0
+    #     # fillColor= 'yellow')
+    #     )
 
     #Setup events
     #include real time column for sanity checking, will be excluded in BIDS
@@ -123,11 +145,13 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
         # breaks on Rhodri's laptop, work's on Aine's        
         # # GetSecs: returns the time in seconds (with high precision).
         now = ptb.GetSecs()
-        # audio.play(when=now+3.000000)
+        # audio.play(when=now+10.000000)
         audio.play(when=now+audio_delay)
+        # audio.play()
+        print("AUDIO IS PLAYING!")
 
-        # breaks on  Aine's laptop - works on Rhodri's windows
-        # audio onset delay
+        # # breaks on  Aine's laptop - works on Rhodri's windows
+        # # audio onset delay
         # audio.play(secs=10.000)
 
         ev['real_time'] = vis_met_onset_realtime
@@ -190,7 +214,7 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
                 # ORIGINAL MODEL
                 # yc = A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
                 # Add scaling:
-                yc = 200 + 1200 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
+                yc = 50 + 250 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
                 # Collapse to Origin - presents as too volatile
                 # yc = 2000 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
 

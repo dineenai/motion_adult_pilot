@@ -36,11 +36,12 @@ import audio_motion_adult_pilot_mar_22
 #################################################
 
 # root directory depending on user - must contain all necessary subfolders
-if os.getlogin()=='root':
-    root_dir = '/Users/aine/Documents/CusackLab/robust_motion_correction_for_mri_using_dnns/pilot_paradigm/code/'
+# if os.getlogin()=='root':
+    # root_dir = '/Users/aine/Documents/CusackLab/robust_motion_correction_for_mri_using_dnns/pilot_paradigm/code/'
 # elif os.getlogin()=='cusacklab':
 #     root_dir = '\\Users\\cusacklab\\PATH'
 #     root_dir = 'C:\\Users\\ PATH'
+root_dir = "C:\\Users\cusacklab\Desktop\Aine_Motion_Pilot\motion_adult_pilot"
 
 
 # name of subfolder from which to draw stimuli
@@ -145,16 +146,16 @@ print(acquisition)
 
 # Load Audio File depending on runNum
 
-# Short 3s Audio Clip for testing
-aud_filetest = 'CantinaBand3.wav'
-aud_file12 = 'CantinaBand3.wav'
-aud_file34 = 'CantinaBand3.wav'
-aud_file56 = 'CantinaBand3.wav'
+# # Short 3s Audio Clip for testing
+# aud_filetest = 'CantinaBand3.wav'
+# aud_file12 = 'CantinaBand3.wav'
+# aud_file34 = 'CantinaBand3.wav'
+# aud_file56 = 'CantinaBand3.wav'
 
 # change to actual audio clips for scanning
-# aud_file12 = 'PhoneCallHome SB_comp_v3_3db'
-# aud_file34 = 'PieMan_5min_9s_comp_v2'
-# aud_file56 = 'HauntedHouse_5min2s'
+aud_file12 = 'PhoneCallHome SB_comp_v3_3db'
+aud_file34 = 'PieMan_5min_9s_comp_v2'
+aud_file56 = 'HauntedHouse_5min2s'
 
 
 # audfiles = (aud_filetest, aud_file12, aud_file12, aud_file34, aud_file34, aud_file56, aud_file56)
@@ -162,9 +163,9 @@ aud_file56 = 'CantinaBand3.wav'
 # print(audfiles[runNum])
 
 
-if runNum == (0):
-    print("TEST")
-    aud_file = aud_filetest
+# if runNum == (0):
+#     print("TEST")
+#     aud_file = aud_filetest
     
 if runNum == (1):
     print("1")
