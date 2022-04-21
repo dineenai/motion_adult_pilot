@@ -2,7 +2,6 @@ import random
 import pandas as pd
 
 from datetime import datetime, timedelta
-# from paradigm_test2 import Session_Info
 
 from psychopy import event, visual, core
 from psychopy.constants import FINISHED, NOT_STARTED, PLAYING, PAUSED
@@ -48,7 +47,7 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
     fixsize=10
 
     dur = audio.getDuration()
-    print(f"getdur: {dur}")
+    print(f"getdur: {dur}") 
 
     #### NB remember to revert to 'Scan' for scan... ####
     # vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Test', wait_msg='waiting for scanner ...')
@@ -60,6 +59,7 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
     endExpNow = False  # flag for 'escape' or other condition => quit the exp
     frameTolerance = 0.001
 
+    # Aine's Macbookair
     # circle = visual.Circle(
     #     win=win,
     #     name='circle', units='pix', 
@@ -69,6 +69,7 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
     #     # fillColor= 'yellow')
     #     )
 
+    # MRI PC
     circle = visual.Circle(
         win=win,
         name='circle', units='pix', 
@@ -78,18 +79,8 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
         size=1.0, radius=1.5,
         lineColor='white',
         lineWidth=6.0,
-        
         # fillColor= 'yellow')
         )
-
-    # circle = visual.Circle(
-    #     win=win,
-    #     name='circle', units='pix', 
-    #     size=1.0, radius=1.5,
-    #     lineColor='white',
-    #     lineWidth=6.0
-    #     # fillColor= 'yellow')
-    #     )
 
     #Setup events
     #include real time column for sanity checking, will be excluded in BIDS
@@ -102,7 +93,6 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
         sync_now = key_code # flag
     if sync_now:    # waits for sync 
 
-
         # ------Prepare to start Visual Metronome-------
         continueRoutine = True
 
@@ -110,6 +100,7 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
         # keep track of which components have finished
         trialComponents = [circle]
         for thisComponent in trialComponents:
+            print(f"This component is: {thisComponent}")
             thisComponent.tStart = None
             thisComponent.tStop = None
             thisComponent.tStartRefresh = None
@@ -122,37 +113,45 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
         trialClock.reset(-_timeToFirstFrame)  # t0 is time of first possible flip
         frameN = -1
 
-
         #reset event dict for this stimulus
         ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}
-
-        # 10 seconds to practice task before audio starts - is this sufficient?
-        audio_delay = 10.00000
+        
+        # Participant will be informed motion/still verbally
+        # Could  add a text instruction to the screen prior to metrenome but not necessary
         
         # Present AUDIO stimuli
 
         # Stimuli Onsets
         vis_met_onset = globalClock.getTime() #.getTime() Returns the current time on this clock in secs (sub-ms precision).
-        aud_onset = globalClock.getTime() + audio_delay
-
         # Realtime onsets
         vis_met_onset_realtime = datetime.now().strftime("%H:%M:%S:%f")
-        aud_onset_realtime = (datetime.now() + timedelta(0,audio_delay)).strftime("%H:%M:%S:%f")
+        print(vis_met_onset_realtime) #13:54:25:525163
 
-        print(vis_met_onset_realtime)
-        print(aud_onset_realtime)
 
-        # breaks on Rhodri's laptop, work's on Aine's        
+        # 10 seconds to practice task before audio starts - is this sufficient?
+        audio_delay = 10.00000
+        # Stimuli Onsets
+        aud_onset = globalClock.getTime() + audio_delay
+        # Realtime onsets
+        aud_onset_pre_deay = datetime.now() 
+        aud_onset_realtime = (aud_onset_pre_deay + timedelta(0,audio_delay)).strftime("%H:%M:%S:%f")
+
+        # breaks on Rhodri's laptop, work's on Aine's 
+        # NB Check if works on MRIPC!
         # # GetSecs: returns the time in seconds (with high precision).
         now = ptb.GetSecs()
-        # audio.play(when=now+10.000000)
-        audio.play(when=now+audio_delay)
-        # audio.play()
-        print("AUDIO IS PLAYING!")
-
-        # # breaks on  Aine's laptop - works on Rhodri's windows
+        print(f"NOW = {now}") #NOW = 14329.307665261
+        
+         # # breaks on  Aine's laptop - works on Rhodri's windows
         # # audio onset delay
         # audio.play(secs=10.000)
+        # audio.play(when=now+10.000000)
+        audio.play(when=now+audio_delay) #WORKING VERSION #NOT THE SOURCE OF THE PsychPortAudio-WARNING
+        print(f"AUDIO STARTS: {now+audio_delay}") #22013.113607656
+        # audio.play() #TRY TEST
+        print(f"Audio will start playing in 10 s at {aud_onset_realtime}") 
+        # audio.play()
+
 
         ev['real_time'] = vis_met_onset_realtime
         ev['onset']=vis_met_onset
@@ -160,12 +159,17 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
         ev['duration']=aud_onset-vis_met_onset
         ev['trial_type']='preaudio_metronome'
 
-  
         #update events_df with this trial
         expt_events = expt_events.append(ev, ignore_index=True)
         #save out events as tsv each time updated
         expt_events.to_csv(save_loc, sep='\t')
 
+
+        # Allow an extra 5 seconds as stimuli are over running by 5s
+        # 10 s pre audio, audio with approx. 5s overrun, 5s post audio
+        # Ideally quantify overrun but ok for now.
+        len_of_vis_met = dur +20.0 
+        print(f"len_of_vis_met: {len_of_vis_met}")
         # while continueRoutine and routineTimer.getTime() > 0:
         while continueRoutine > 0:
             # get current time
@@ -187,15 +191,9 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
             if circle.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
                 # if tThisFlipGlobal > circle.tStartRefresh + 10-frameTolerance:
-                # CHANGE L of AUDIO HERE TO BE LEN OF CLIP..... + 5????
-                # add length of audio to pre audio len and post audio len - make pre audio len longer
-                # add instruction to the screen?????
-                # pre = 10.0
-                # post = 5.0
-                # len_of_vis_met = dur + pre + post
-                len_of_vis_met = dur +15.0
-                # print(f"len_of_vis_met: {len_of_vis_met}")
-                if tThisFlipGlobal > circle.tStartRefresh + len_of_vis_met-frameTolerance:
+            
+                # if tThisFlipGlobal > circle.tStartRefresh + len_of_vis_met-frameTolerance: #Working? Version
+                if tThisFlipGlobal > (circle.tStartRefresh + len_of_vis_met-frameTolerance):
                 # if tThisFlipGlobal > circle.tStartRefresh + 15-frameTolerance:
                     # keep track of stop time/frame for later
                     circle.tStop = t  # not accounting for scr refresh
@@ -210,7 +208,14 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
                 A = 0.2
                 fm = 1/28
 
+                # Laptop Version
+                # ym = 0.15 *(sin(2 * pi * fm * t) *(cos(4 * pi * fm * t)+ 5))/(6 * fm) 
+                # yc = 200 + 1200 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
+
+
+                # Edit for MRI PC - do we want to have a perfect circle or is the distorted oval ok?
                 ym = 0.15 *(sin(2 * pi * fm * t) *(cos(4 * pi * fm * t)+ 5))/(6 * fm) 
+                
                 # ORIGINAL MODEL
                 # yc = A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
                 # Add scaling:
@@ -322,23 +327,19 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
                     expt_events.to_csv(save_loc, sep='\t')
                     
                     return
-               
+        
+        # Metrenome has stopped playing - retrospectivly log the audio and post audio metrenome periods
+        # Audio takes longer to play than it should
+        # The accuracy of these logs is affected by this!
+        # other logs including button presses are unaffected
+
+
+        # Log the Audio Clip as an event
         ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}
 
-
-        # NO NEED AS ONLY GET TO HERE WHEN THIS IS THE CASE ANYWAY!
-        # # MAKE SURE THAT EVENT INDEXES DURATION OF STIMULUS!!!!!
-        # if audio.status == FINISHED:
-        # # if audio.status != PLAYING:
-            
-
-        # audio.pause()
-        end = globalClock.getTime() 
-        
         ev['real_time'] = aud_onset_realtime
         ev['onset']=aud_onset
-        # also subtract duration of post audio
-        ev['duration']=end-aud_onset-5.0
+        ev['duration']= dur 
         ev['trial_type']=aud_file
 
         #update events_df with this trial
@@ -347,58 +348,8 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
         expt_events.to_csv(save_loc, sep='\t')
 
 
-
-
-
-
-# Post Audio Period
-        ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}
-
-        # end = globalClock.getTime()
-        onset = globalClock.getTime()-5.0
-        # realtime_end = datetime.now().strftime("%H:%M:%S:%f")
-        # realtime_start = datetime.now().strftime("%H:%M:%S:%f")- timedelta(seconds=5)
-        realtime_start = (datetime.now()- timedelta(seconds=5)).strftime("%H:%M:%S:%f")
-        post=0.5
-        ev['trial_type'] = 'postaudio_metronome'
-        ev['onset'] = onset
-        # ev['real_time'] = realtime_end-5.0
-        ev['real_time'] = realtime_start
-        ev['duration'] = 5.0 
-
-        #update events_df with this trial
-        expt_events = expt_events.append(ev, ignore_index=True)
-        #save out events as tsv each time updated
-        expt_events.to_csv(save_loc, sep='\t')
-
-        # # Post Audio Period
-        # ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}
-
-        # onset = globalClock.getTime()
-        # realtime = datetime.now().strftime("%H:%M:%S:%f")
-
-        # ev['trial_type'] = 'postaudio_metronome'
-        # ev['onset'] = onset
-        # ev['real_time'] = realtime
-
-        
-        # # # length of postaudio period - set desired n of seconds
-        # post_audio_length = 5
-        # timer = core.Clock()
-        # timer.add(post_audio_length)
-        # while timer.getTime()<0:
-        #     # fixation.draw()
-        #     win.flip()
-
-        # end = globalClock.getTime()
-        # ev['duration'] = end - onset
-
-        # #update events_df with this trial
-        # expt_events = expt_events.append(ev, ignore_index=True)
-        # #save out events as tsv each time updated
-        # expt_events.to_csv(save_loc, sep='\t')
-
-        sync_now = False
+        # Should this still be here (currently below?)?
+        # sync_now = False
 
 
         # End Visual Metrenome
@@ -406,6 +357,39 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
         for thisComponent in trialComponents:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
+
+
+        # Log the post audio metrenome period as an event
+        # AGAIN: Hard coding of durations is leading to errors in logging of these events 
+        # Realtime logs would be prefered BUT difficult to resolve due to the nature of the metrenome code
+        ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}
+        
+        onset = aud_onset + dur #timedelta?
+
+        print(f"REALTIME {aud_onset_realtime} vs NOW: {datetime.now()}, type realtime{type(aud_onset_realtime)}.")
+        print(datetime.now().strftime("%H:%M:%S:%f"))
+        # REALTIME 15:03:15:064398 vs NOW: 2022-04-21 15:03:23.086616, type realtime<class 'str'>
+        # 15:03:23:086653
+        print("test aud onset now: {aud_onset_pre_deay}")
+
+        ev['trial_type'] = 'postaudio_metronome'
+        ev['onset'] = onset
+
+        realtime_start = (aud_onset_pre_deay + timedelta(0,audio_delay) + timedelta(0,dur)).strftime("%H:%M:%S:%f")
+        ev['real_time'] = realtime_start
+        # ev['duration'] = 5.0 
+
+        end = globalClock.getTime() 
+        post_aud_dur = end - onset
+        ev['duration'] = post_aud_dur
+
+        #update events_df with this trial
+        expt_events = expt_events.append(ev, ignore_index=True)
+        #save out events as tsv each time updated
+        expt_events.to_csv(save_loc, sep='\t')
+
+
+        sync_now = False
 
         # Flip one final time so any remaining win.callOnFlip() 
         # and win.timeOnFlip() tasks get executed before quitting

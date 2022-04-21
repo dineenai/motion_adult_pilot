@@ -35,14 +35,19 @@ import audio_motion_adult_pilot_mar_22
 ### set up scan - participant ID, orders etc. ###
 #################################################
 
-# root directory depending on user - must contain all necessary subfolders
-# if os.getlogin()=='root':
-    # root_dir = '/Users/aine/Documents/CusackLab/robust_motion_correction_for_mri_using_dnns/pilot_paradigm/code/'
-# elif os.getlogin()=='cusacklab':
-#     root_dir = '\\Users\\cusacklab\\PATH'
-#     root_dir = 'C:\\Users\\ PATH'
-root_dir = "C:\\Users\cusacklab\Desktop\Aine_Motion_Pilot\motion_adult_pilot"
 
+# MRI PC:
+# root_dir = "C:\\Users\cusacklab\Desktop\Aine_Motion_Pilot\motion_adult_pilot"
+# Aine Laptop:
+# root_dir = '/Users/aine/Documents/CusackLab/robust_motion_correction_for_mri_using_dnns/pilot_paradigm/motion_adult_pilot/'
+
+# root directory depending on user - must contain all necessary subfolders
+if os.getlogin()=='cusacklab':
+    root_dir = "C:\\Users\cusacklab\Desktop\Aine_Motion_Pilot\motion_adult_pilot"
+elif os.getlogin()=='root':
+    root_dir = '/Users/aine/Documents/CusackLab/robust_motion_correction_for_mri_using_dnns/pilot_paradigm/motion_adult_pilot/'
+
+print(f"Root dir is: {root_dir}")
 
 # name of subfolder from which to draw stimuli
 stim_loc = 'audio_clips'
@@ -57,7 +62,7 @@ elif not os.path.exists(stim_folder):
 if len(os.listdir(stim_folder)) == 0:
     warnings.warn("your stimulus folder is empty")
 
-#set paramaters for display
+#set paramaters for display # MRI PC 
 centrepos=[0,-450]
 distort_centrepos=[0,-480]
 
@@ -124,8 +129,6 @@ orders = {
     5: ['sb_axial_still', 'sb_axial_motion', 'mb_axial_still', 'mb_axial_motion', 'mb_sagit_still', 'mb_sagit_motion']
 }
 
-
-
 runNum = int(runNum)
 print(runNum)
 
@@ -146,13 +149,23 @@ print(acquisition)
 
 # Load Audio File depending on runNum
 
-# # Short 3s Audio Clip for testing
-# aud_filetest = 'CantinaBand3.wav'
+# # # # Short 3s Audio Clip for testing
+# # # aud_filetest = 'CantinaBand3.wav'
 # aud_file12 = 'CantinaBand3.wav'
 # aud_file34 = 'CantinaBand3.wav'
 # aud_file56 = 'CantinaBand3.wav'
 
-# change to actual audio clips for scanning
+# TESTING
+# aud_file12 = 'PhoneCallHome SB_comp_v3_3db'
+# aud_file34 = 'PhoneCallHome SB_comp_v3_3db'
+# aud_file56 = 'PhoneCallHome SB_comp_v3_3db'
+
+# aud_file12 = 'PieMan_5min_9s'
+# aud_file34 = 'PieMan_5min_9s'
+# aud_file56 = 'PieMan_5min_9s'
+
+
+# # Actual audio clips for scanning NB
 aud_file12 = 'PhoneCallHome SB_comp_v3_3db'
 aud_file34 = 'PieMan_5min_9s_comp_v2'
 aud_file56 = 'HauntedHouse_5min2s'
@@ -203,7 +216,6 @@ print(f'Audio file is {aud_file}')
 
 # load audio
 audio = sound.Sound(os.path.join(root_dir,stim_loc,aud_file))
-
 
 
 infoDlg = gui.Dlg(title='Acquisition')
