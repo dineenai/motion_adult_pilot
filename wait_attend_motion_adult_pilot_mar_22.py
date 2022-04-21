@@ -17,7 +17,9 @@ from ctypes import POINTER, cast
 # from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume #re-add
 
 #experiment module
+# import audio_motion_adult_pilot_mar_22 # ACTUAL
 import audio_motion_adult_pilot_mar_22
+import get_audio_clip_length 
 
 ### AUDIO ### - set for scan - not compatible with mac
 
@@ -150,7 +152,7 @@ print(acquisition)
 # Load Audio File depending on runNum
 
 # # # # Short 3s Audio Clip for testing
-# # # aud_filetest = 'CantinaBand3.wav'
+# # # # aud_filetest = 'CantinaBand3.wav'
 # aud_file12 = 'CantinaBand3.wav'
 # aud_file34 = 'CantinaBand3.wav'
 # aud_file56 = 'CantinaBand3.wav'
@@ -233,7 +235,7 @@ if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 
 
-# Made shorter for testing
+# Update these parameters?
 #Configure MRI Settings
 MR_settings = {
     'TR': 0.656,     # duration (sec) per whole-brain volume
@@ -281,6 +283,8 @@ while True:
         save_loc = os.path.join(save_dir,f'sub-{_subj}_task-audio_{aud_file[:-4]}_acq-{acquisition}_run-{runNum}-{launch}_events.tsv')
         
         audio_motion_adult_pilot_mar_22.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info) 
+        #  To Get duration for which an audio clip is actually played:
+        # get_audio_clip_length.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info) 
 
         # Update history file for auto loading of next participantID and runNum
         _hist = pd.DataFrame({'participantID':[subNum] , 'num_runs':[runNum]})
