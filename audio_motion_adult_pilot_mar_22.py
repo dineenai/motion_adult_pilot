@@ -30,7 +30,7 @@ from matplotlib import pyplot as plt
 import matplotlib.pylab as plb
 
 
-def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
+def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum):
 
     #launch scanning
     globalClock = core.Clock() 
@@ -50,8 +50,8 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
     print(f"getdur: {dur}") 
 
     #### NB remember to revert to 'Scan' for scan... ####
-    # vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Test', wait_msg='waiting for scanner ...')
-    vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Scan', wait_msg='waiting for scanner ...')
+    vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Test', wait_msg='waiting for scanner ...')
+    # vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Scan', wait_msg='waiting for scanner ...')
 
     # Initialize components for Routine "trial"
     trialClock = core.Clock()
@@ -213,15 +213,22 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info):
                 # yc = 200 + 1200 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
 
 
-                # Edit for MRI PC - do we want to have a perfect circle or is the distorted oval ok?
-                ym = 0.15 *(sin(2 * pi * fm * t) *(cos(4 * pi * fm * t)+ 5))/(6 * fm) 
+                # # Edit for MRI PC - do we want to have a perfect circle or is the distorted oval ok?
+                # ym = 0.15 *(sin(2 * pi * fm * t) *(cos(4 * pi * fm * t)+ 5))/(6 * fm) 
                 
-                # ORIGINAL MODEL
-                # yc = A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
-                # Add scaling:
-                yc = 50 + 250 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
-                # Collapse to Origin - presents as too volatile
-                # yc = 2000 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
+                # # ORIGINAL MODEL
+                # # yc = A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
+                # # Add scaling:
+                # yc = 50 + 250 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
+                # # Collapse to Origin - presents as too volatile
+                # # yc = 2000 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
+
+
+                # Add phase shift - change systemically with subjects
+                n = subNum%6
+                ym = 0.15 * (sin(2 * pi * fm * (t + (28/6 * n))) *(cos(4 * pi * fm * (t + (28/6 * n)))+ 5))/(6 * fm)
+                yc = 50 + 250 * A * cos (2 * pi * fc * (t + (28/6 * n)) + fdelta/fm * ym  ) /3
+
 
                 circle.setSize(yc, log=False)
 

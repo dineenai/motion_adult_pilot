@@ -167,7 +167,7 @@ print(acquisition)
 # aud_file56 = 'PieMan_5min_9s'
 
 
-# # Actual audio clips for scanning NB
+# # # Actual audio clips for scanning NB
 aud_file12 = 'PhoneCallHome SB_comp_v3_3db'
 aud_file34 = 'PieMan_5min_9s_comp_v2'
 aud_file56 = 'HauntedHouse_5min2s'
@@ -282,7 +282,7 @@ while True:
         
         save_loc = os.path.join(save_dir,f'sub-{_subj}_task-audio_{aud_file[:-4]}_acq-{acquisition}_run-{runNum}-{launch}_events.tsv')
         
-        audio_motion_adult_pilot_mar_22.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info) 
+        audio_motion_adult_pilot_mar_22.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info, subNum) 
         #  To Get duration for which an audio clip is actually played:
         # get_audio_clip_length.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info) 
 
