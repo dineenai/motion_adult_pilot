@@ -157,10 +157,10 @@ print(acquisition)
 # aud_file34 = 'CantinaBand3.wav'
 # aud_file56 = 'CantinaBand3.wav'
 
-# TESTING
-aud_file12 = 'PhoneCallHome SB_comp_v3_3db'
-aud_file34 = 'PhoneCallHome SB_comp_v3_3db'
-aud_file56 = 'PhoneCallHome SB_comp_v3_3db'
+# # TESTING
+# aud_file12 = 'PhoneCallHome SB_comp_v3_3db'
+# aud_file34 = 'PhoneCallHome SB_comp_v3_3db'
+# aud_file56 = 'PhoneCallHome SB_comp_v3_3db'
 
 # aud_file12 = 'PieMan_5min_9s'
 # aud_file34 = 'PieMan_5min_9s'
@@ -173,14 +173,20 @@ aud_file56 = 'PhoneCallHome SB_comp_v3_3db'
 # aud_file34 = 'PieMan_5min_9s_comp_v2'
 # aud_file56 = 'HauntedHouse_5min2s'
 
-# 29 Apr 22
-aud_file12 = 'PhoneCallHome SB_comp_v3_3db_g_and_l_amp_inc'
-aud_file34 = 'PieMan_5min_9s_comp_v2_global_amp_increase'
-aud_file56 = 'HauntedHouse_5min2s_SB_comp_global_amp_increase'
+# # 29 Apr 22
+# aud_file12 = 'PhoneCallHome SB_comp_v3_3db_g_and_l_amp_inc'
+# aud_file34 = 'PieMan_5min_9s_comp_v2_global_amp_increase'
+# aud_file56 = 'HauntedHouse_5min2s_SB_comp_global_amp_increase'
 
 # HauntedHouse_5min2s_SB_comp_global_amp_increase
 # PhoneCallHome SB_comp_v3_3db_g_and_l_amp_inc
 # PieMan_5min_9s_comp_v2_global_amp_increase
+
+
+# 3 MAY
+aud_file12 = 'PhoneCallHome_5_10'
+aud_file34 = 'PieMan_5_7'
+aud_file56 = 'HauntedHouse_5_10'
 
 
 
