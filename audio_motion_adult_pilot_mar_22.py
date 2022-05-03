@@ -50,8 +50,8 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
     print(f"getdur: {dur}") 
 
     #### NB remember to revert to 'Scan' for scan... ####
-    vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Test', wait_msg='waiting for scanner ...')
-    # vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Scan', wait_msg='waiting for scanner ...')
+    # vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Test', wait_msg='waiting for scanner ...')
+    vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Scan', wait_msg='waiting for scanner ...')
 
     # Initialize components for Routine "trial"
     trialClock = core.Clock()
@@ -297,7 +297,7 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
                         #save out events as tsv each time updated
                         expt_events.to_csv(save_loc, sep='\t')
             
-                if 'd' in keys:
+                if 'c' in keys: #Changed from d to c - new NNL leads
                     if audio.status == PLAYING:
                         # ev = {'onset':None,'duration':None,'trial_type':None,'real_time':None}
                         ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}

@@ -158,19 +158,30 @@ print(acquisition)
 # aud_file56 = 'CantinaBand3.wav'
 
 # TESTING
-# aud_file12 = 'PhoneCallHome SB_comp_v3_3db'
-# aud_file34 = 'PhoneCallHome SB_comp_v3_3db'
-# aud_file56 = 'PhoneCallHome SB_comp_v3_3db'
+aud_file12 = 'PhoneCallHome SB_comp_v3_3db'
+aud_file34 = 'PhoneCallHome SB_comp_v3_3db'
+aud_file56 = 'PhoneCallHome SB_comp_v3_3db'
 
 # aud_file12 = 'PieMan_5min_9s'
 # aud_file34 = 'PieMan_5min_9s'
 # aud_file56 = 'PieMan_5min_9s'
 
 
-# # # Actual audio clips for scanning NB
-aud_file12 = 'PhoneCallHome SB_comp_v3_3db'
-aud_file34 = 'PieMan_5min_9s_comp_v2'
-aud_file56 = 'HauntedHouse_5min2s'
+#PREVIOUS AUDIO
+# # # # Actual audio clips for scanning NB
+# aud_file12 = 'PhoneCallHome SB_comp_v3_3db'
+# aud_file34 = 'PieMan_5min_9s_comp_v2'
+# aud_file56 = 'HauntedHouse_5min2s'
+
+# 29 Apr 22
+aud_file12 = 'PhoneCallHome SB_comp_v3_3db_g_and_l_amp_inc'
+aud_file34 = 'PieMan_5min_9s_comp_v2_global_amp_increase'
+aud_file56 = 'HauntedHouse_5min2s_SB_comp_global_amp_increase'
+
+# HauntedHouse_5min2s_SB_comp_global_amp_increase
+# PhoneCallHome SB_comp_v3_3db_g_and_l_amp_inc
+# PieMan_5min_9s_comp_v2_global_amp_increase
+
 
 
 # audfiles = (aud_filetest, aud_file12, aud_file12, aud_file34, aud_file34, aud_file56, aud_file56)
@@ -282,9 +293,9 @@ while True:
         
         save_loc = os.path.join(save_dir,f'sub-{_subj}_task-audio_{aud_file[:-4]}_acq-{acquisition}_run-{runNum}-{launch}_events.tsv')
         
-        audio_motion_adult_pilot_mar_22.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info, subNum) 
+        # audio_motion_adult_pilot_mar_22.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info, subNum) 
         #  To Get duration for which an audio clip is actually played:
-        # get_audio_clip_length.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info) 
+        get_audio_clip_length.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info) 
 
         # Update history file for auto loading of next participantID and runNum
         _hist = pd.DataFrame({'participantID':[subNum] , 'num_runs':[runNum]})
