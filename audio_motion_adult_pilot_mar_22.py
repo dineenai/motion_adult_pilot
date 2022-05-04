@@ -50,8 +50,8 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
     print(f"getdur: {dur}") 
 
     #### NB remember to revert to 'Scan' for scan... ####
-    # vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Test', wait_msg='waiting for scanner ...')
-    vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Scan', wait_msg='waiting for scanner ...')
+    vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Test', wait_msg='waiting for scanner ...')
+    # vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Scan', wait_msg='waiting for scanner ...')
 
     # Initialize components for Routine "trial"
     trialClock = core.Clock()
@@ -59,17 +59,7 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
     endExpNow = False  # flag for 'escape' or other condition => quit the exp
     frameTolerance = 0.001
 
-    # Aine's Macbookair
-    # circle = visual.Circle(
-    #     win=win,
-    #     name='circle', units='pix', 
-    #     ori=0, pos=(0, 0), size=1.0, radius=1.5,
-    #     lineColor='white',
-    #     lineWidth=6.0
-    #     # fillColor= 'yellow')
-    #     )
-
-    # MRI PC
+    # Circle for Visual Metrenome
     circle = visual.Circle(
         win=win,
         name='circle', units='pix', 
@@ -79,7 +69,7 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
         size=1.0, radius=1.5,
         lineColor='white',
         lineWidth=6.0,
-        # fillColor= 'yellow')
+        # fillColor= 'yellow') # Decided to leave as outline - better visibility with anterior coil on 
         )
 
     #Setup events
@@ -115,9 +105,7 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
 
         #reset event dict for this stimulus
         ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}
-        
-        # Participant will be informed motion/still verbally
-        # Could  add a text instruction to the screen prior to metrenome but not necessary
+    
         
         # Present AUDIO stimuli
 
@@ -191,7 +179,6 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
             if circle.status == STARTED:
                 # is it time to stop? (based on global clock, using actual start)
                 # if tThisFlipGlobal > circle.tStartRefresh + 10-frameTolerance:
-            
                 # if tThisFlipGlobal > circle.tStartRefresh + len_of_vis_met-frameTolerance: #Working? Version
                 if tThisFlipGlobal > (circle.tStartRefresh + len_of_vis_met-frameTolerance):
                 # if tThisFlipGlobal > circle.tStartRefresh + 15-frameTolerance:
@@ -203,6 +190,11 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
 
             if circle.status == STARTED:  # only update if drawing
 
+                # Set Radius of the Circle
+                # Do we want to have a perfect circle or is the distorted oval ok? If former, edit for MRI PC
+                # Collapse to Origin - presents as too volatile, translate in y-direction
+                # Add phase shift (28/6 * n) - change systematically with subjects
+
                 fc = 1/7
                 fdelta = 0.6 * fc
                 A = 0.2
@@ -211,24 +203,11 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
                 # Laptop Version
                 # ym = 0.15 *(sin(2 * pi * fm * t) *(cos(4 * pi * fm * t)+ 5))/(6 * fm) 
                 # yc = 200 + 1200 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
-
-
-                # # Edit for MRI PC - do we want to have a perfect circle or is the distorted oval ok?
-                # ym = 0.15 *(sin(2 * pi * fm * t) *(cos(4 * pi * fm * t)+ 5))/(6 * fm) 
                 
-                # # ORIGINAL MODEL
-                # # yc = A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
-                # # Add scaling:
-                # yc = 50 + 250 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
-                # # Collapse to Origin - presents as too volatile
-                # # yc = 2000 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
-
-
-                # Add phase shift - change systemically with subjects
+                # MRI PC
                 n = subNum%6
                 ym = 0.15 * (sin(2 * pi * fm * (t + (28/6 * n))) *(cos(4 * pi * fm * (t + (28/6 * n)))+ 5))/(6 * fm)
                 yc = 50 + 250 * A * cos (2 * pi * fc * (t + (28/6 * n)) + fdelta/fm * ym  ) /3
-
 
                 circle.setSize(yc, log=False)
 
@@ -247,10 +226,10 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
                 win.flip()
 
 
-                    # # while audio.status != FINISHED:
+                # # while audio.status != FINISHED:
                 keys = event.getKeys()
 
-                # Probably no need for pause function, remove?
+                # Probably no need for pause function, as would just restart acquisition: remove
                 
                 #functionality to pause the audio while scan is still running
                 #this will record how long the stimulus was paused for

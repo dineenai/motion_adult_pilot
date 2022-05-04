@@ -37,12 +37,6 @@ import get_audio_clip_length
 ### set up scan - participant ID, orders etc. ###
 #################################################
 
-
-# MRI PC:
-# root_dir = "C:\\Users\cusacklab\Desktop\Aine_Motion_Pilot\motion_adult_pilot"
-# Aine Laptop:
-# root_dir = '/Users/aine/Documents/CusackLab/robust_motion_correction_for_mri_using_dnns/pilot_paradigm/motion_adult_pilot/'
-
 # root directory depending on user - must contain all necessary subfolders
 if os.getlogin()=='cusacklab':
     root_dir = "C:\\Users\cusacklab\Desktop\Aine_Motion_Pilot\motion_adult_pilot"
@@ -151,48 +145,15 @@ print(acquisition)
 
 # Load Audio File depending on runNum
 
-# # # # Short 3s Audio Clip for testing
-# # # # aud_filetest = 'CantinaBand3.wav'
+# # Short 3s Audio Clip for testing
+# # aud_filetest = 'CantinaBand3.wav'
 # aud_file12 = 'CantinaBand3.wav'
 # aud_file34 = 'CantinaBand3.wav'
 # aud_file56 = 'CantinaBand3.wav'
 
-# # TESTING
-# aud_file12 = 'PhoneCallHome SB_comp_v3_3db'
-# aud_file34 = 'PhoneCallHome SB_comp_v3_3db'
-# aud_file56 = 'PhoneCallHome SB_comp_v3_3db'
-
-# aud_file12 = 'PieMan_5min_9s'
-# aud_file34 = 'PieMan_5min_9s'
-# aud_file56 = 'PieMan_5min_9s'
-
-
-#PREVIOUS AUDIO
-# # # # Actual audio clips for scanning NB
-# aud_file12 = 'PhoneCallHome SB_comp_v3_3db'
-# aud_file34 = 'PieMan_5min_9s_comp_v2'
-# aud_file56 = 'HauntedHouse_5min2s'
-
-# # 29 Apr 22
-# aud_file12 = 'PhoneCallHome SB_comp_v3_3db_g_and_l_amp_inc'
-# aud_file34 = 'PieMan_5min_9s_comp_v2_global_amp_increase'
-# aud_file56 = 'HauntedHouse_5min2s_SB_comp_global_amp_increase'
-
-# HauntedHouse_5min2s_SB_comp_global_amp_increase
-# PhoneCallHome SB_comp_v3_3db_g_and_l_amp_inc
-# PieMan_5min_9s_comp_v2_global_amp_increase
-
-
-# 3 MAY
 aud_file12 = 'PhoneCallHome_5_10'
 aud_file34 = 'PieMan_5_7'
 aud_file56 = 'HauntedHouse_5_10'
-
-
-
-# audfiles = (aud_filetest, aud_file12, aud_file12, aud_file34, aud_file34, aud_file56, aud_file56)
-# aud_file = audfiles[runNum]
-# print(audfiles[runNum])
 
 
 # if runNum == (0):
@@ -231,7 +192,8 @@ print(f'Audio file is {aud_file}')
 
 # Only loads required audio as script is launched for each acquisition
 # This is to avoid  error in clip played run needs to be terminated/repeated and to double check that acquisition is correct
-# RUns automatically counted, displays desired sequence
+# Runs automatically counted
+# Displays desired sequence
 
 # load audio
 audio = sound.Sound(os.path.join(root_dir,stim_loc,aud_file))
@@ -246,7 +208,6 @@ if not infoDlg.OK:
 
 #events file save location according to BIDS specification
 # bids ordering: task-audio, acq, run
-# save_dir = os.path.join(root_dir,'logs0', f'sub-{_subj}',f'task-audio_{aud_file[:-4]}',f'acq-{acquisition}', f'run-{runNum}','func')
 save_dir = os.path.join(root_dir,'logs_motion_adult_pilot', f'sub-{_subj}','func')
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
@@ -256,8 +217,8 @@ if not os.path.exists(save_dir):
 #Configure MRI Settings
 MR_settings = {
     'TR': 0.656,     # duration (sec) per whole-brain volume
-    # 'volumes': 455,    # number of whole-brain 3D volumes per scanning run (731 seconds per run, 12.18 mins), might be more if pause or attend needed
-    'volumes': 10,    # decreased for testing
+    # 'volumes': 455,    # number of whole-brain 3D volumes per scanning run #This is infant number - Check our data...
+    'volumes': 10,    # decreased for testing       #Numbeer does not matter for scan - will always be 6
     'sync': 's', # character to use as the sync timing event; assumed to come at start of a volume
     'skip': 10,       # number of volumes lacking a sync pulse at start of scan (for T1 stabilization)
     'sound': True   # in test mode: play a tone as a reminder of scanner noise
@@ -276,6 +237,10 @@ print(
     PARADIGM INSTRUCTIONS:
     --------------------------------
     pre-load audio
+
+    verbally inform participant if still or motion trial prior to launching experiment
+
+    manually check that audio is set to full volume (100)
 
     press 'e' to launch experiment and wait for scanner to send first trigger pulse
         if the experiment needs to be relaunched, press 'esc' to return to main waiting screen
@@ -299,8 +264,7 @@ while True:
         
         save_loc = os.path.join(save_dir,f'sub-{_subj}_task-audio_{aud_file[:-4]}_acq-{acquisition}_run-{runNum}-{launch}_events.tsv')
         
-        # audio_motion_adult_pilot_mar_22.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info, subNum) 
-        #  To Get duration for which an audio clip is actually played:
+        #  TO DO: Get duration for which an audio clip is actually played:
         get_audio_clip_length.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info) 
 
         # Update history file for auto loading of next participantID and runNum
