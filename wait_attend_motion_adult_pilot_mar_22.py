@@ -147,13 +147,13 @@ print(acquisition)
 
 # # Short 3s Audio Clip for testing
 # # aud_filetest = 'CantinaBand3.wav'
-# aud_file12 = 'CantinaBand3.wav'
-# aud_file34 = 'CantinaBand3.wav'
-# aud_file56 = 'CantinaBand3.wav'
+aud_file12 = 'CantinaBand3.wav'
+aud_file34 = 'CantinaBand3.wav'
+aud_file56 = 'CantinaBand3.wav'
 
-aud_file12 = 'PhoneCallHome_5_10'
-aud_file34 = 'PieMan_5_7'
-aud_file56 = 'HauntedHouse_5_10'
+# aud_file12 = 'PhoneCallHome_5_10'
+# aud_file34 = 'PieMan_5_7'
+# aud_file56 = 'HauntedHouse_5_10'
 
 
 # if runNum == (0):
@@ -265,7 +265,8 @@ while True:
         save_loc = os.path.join(save_dir,f'sub-{_subj}_task-audio_{aud_file[:-4]}_acq-{acquisition}_run-{runNum}-{launch}_events.tsv')
         
         #  TO DO: Get duration for which an audio clip is actually played:
-        get_audio_clip_length.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info) 
+        # get_audio_clip_length.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info) 
+        audio_motion_adult_pilot_mar_22.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info, subNum) 
 
         # Update history file for auto loading of next participantID and runNum
         _hist = pd.DataFrame({'participantID':[subNum] , 'num_runs':[runNum]})

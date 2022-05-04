@@ -72,7 +72,7 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
         # fillColor= 'yellow') # Decided to leave as outline - better visibility with anterior coil on 
         )
 
-    #Setup events
+    #Setup events  
     #include real time column for sanity checking, will be excluded in BIDS
     expt_events = pd.DataFrame(columns=['onset','duration','trial_type', 'real_time'])
     
@@ -106,7 +106,6 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
         #reset event dict for this stimulus
         ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}
     
-        
         # Present AUDIO stimuli
 
         # Stimuli Onsets
@@ -124,22 +123,20 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
         aud_onset_pre_deay = datetime.now() 
         aud_onset_realtime = (aud_onset_pre_deay + timedelta(0,audio_delay)).strftime("%H:%M:%S:%f")
 
+
+        # # breaks on  Aine's laptop - works on Rhodri's windows
+        # # audio onset delay
+        # audio.play(secs=10.000)
+
         # breaks on Rhodri's laptop, work's on Aine's 
         # NB Check if works on MRIPC!
         # # GetSecs: returns the time in seconds (with high precision).
-        now = ptb.GetSecs()
-        print(f"NOW = {now}") #NOW = 14329.307665261
-        
-         # # breaks on  Aine's laptop - works on Rhodri's windows
-        # # audio onset delay
-        # audio.play(secs=10.000)
-        # audio.play(when=now+10.000000)
-        audio.play(when=now+audio_delay) #WORKING VERSION #NOT THE SOURCE OF THE PsychPortAudio-WARNING
-        print(f"AUDIO STARTS: {now+audio_delay}") #22013.113607656
-        # audio.play() #TRY TEST
-        print(f"Audio will start playing in 10 s at {aud_onset_realtime}") 
-        # audio.play()
+        # now = ptb.GetSecs() 
+        # audio.play(when=now+audio_delay) #WORKING VERSION #NOT THE SOURCE OF THE PsychPortAudio-WARNING
 
+        audio.play(when=ptb.GetSecs()+audio_delay) 
+        # print(f"AUDIO STARTS: {now+audio_delay}") #22013.113607656
+        print(f"Audio will start playing in 10 s at {aud_onset_realtime}") 
 
         ev['real_time'] = vis_met_onset_realtime
         ev['onset']=vis_met_onset
@@ -225,36 +222,8 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
             if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                 win.flip()
 
-
                 # # while audio.status != FINISHED:
                 keys = event.getKeys()
-
-                # Probably no need for pause function, as would just restart acquisition: remove
-                
-                #functionality to pause the audio while scan is still running
-                #this will record how long the stimulus was paused for
-                #note that a paused screen and no audio will be displayed if pressed
-                if 'p' in keys:
-                    # ev = {'onset':None,'duration':None,'trial_type':None,'real_time':None}
-                    ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}
-                    if audio.status == PLAYING:
-                        audio.pause()
-                        ev['real_time'] = datetime.now().strftime("%H:%M:%S:%f")
-                        
-                        pause_onset = globalClock.getTime()  
-                        ev['onset']=pause_onset
-                        ev['trial_type']='pause'
-
-                    elif audio.status == PAUSED:
-                        audio.play()
-
-                        pause_end = globalClock.getTime()
-                        ev['duration']=pause_end - pause_onset
-                    
-                        #update events_df with this trial
-                        expt_events = expt_events.append(ev, ignore_index=True)
-                        #save out events as tsv each time updated
-                        expt_events.to_csv(save_loc, sep='\t')
 
                 if 'a' in keys:
                     # ev = {'onset':None,'duration':None,'trial_type':None,'real_time':None}
@@ -296,7 +265,6 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
                         #save out events as tsv each time updated
                         expt_events.to_csv(save_loc, sep='\t')
 
-
                 elif 'escape' in keys:
                     ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}
                     end = globalClock.getTime()
@@ -319,7 +287,6 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
         # The accuracy of these logs is affected by this!
         # other logs including button presses are unaffected
 
-
         # Log the Audio Clip as an event
         ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}
 
@@ -333,11 +300,6 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
         #save out events as tsv each time updated
         expt_events.to_csv(save_loc, sep='\t')
 
-
-        # Should this still be here (currently below?)?
-        # sync_now = False
-
-
         # End Visual Metrenome
         # -------Ending Routine "trial"-------
         for thisComponent in trialComponents:
@@ -350,7 +312,7 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
         # Realtime logs would be prefered BUT difficult to resolve due to the nature of the metrenome code
         ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}
         
-        onset = aud_onset + dur #timedelta?
+        onset = aud_onset + dur 
 
         print(f"REALTIME {aud_onset_realtime} vs NOW: {datetime.now()}, type realtime{type(aud_onset_realtime)}.")
         print(datetime.now().strftime("%H:%M:%S:%f"))
@@ -373,7 +335,6 @@ def run_trial(win, audio, aud_file, MR_settings, save_loc, Session_Info, subNum)
         expt_events = expt_events.append(ev, ignore_index=True)
         #save out events as tsv each time updated
         expt_events.to_csv(save_loc, sep='\t')
-
 
         sync_now = False
 
