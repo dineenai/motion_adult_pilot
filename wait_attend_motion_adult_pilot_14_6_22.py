@@ -17,8 +17,7 @@ from ctypes import POINTER, cast
 # from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume #re-add
 
 #experiment module
-# import audio_motion_adult_pilot_mar_22 # ACTUAL
-# import audio_motion_adult_pilot_mar_22_13_5_22
+# import audio_motion_adult_pilot_mar_22 # OLD
 import audio_motion_adult_pilot_14_6_22
 import get_audio_clip_length 
 
@@ -146,15 +145,19 @@ print(acquisition)
 
 # Load Audio File depending on runNum
 
-# # # # Short 3s Audio Clip for testing
-# # # # # aud_filetest = 'CantinaBand3.wav'
-aud_file12 = 'CantinaBand3.wav'
-aud_file34 = 'CantinaBand3.wav'
-aud_file56 = 'CantinaBand3.wav'
+# # # # # Short 3s Audio Clip for testing
+# # # # # # aud_filetest = 'CantinaBand3.wav'
+# aud_file12 = 'CantinaBand3.wav'
+# aud_file34 = 'CantinaBand3.wav'
+# aud_file56 = 'CantinaBand3.wav'
 
 # aud_file12 = 'PhoneCallHome_5' #5 00
 # aud_file34 = 'PieMan_5min' # 5 01
 # aud_file56 = 'HauntedHouse_5_9' #5 06
+
+aud_file12 = 'PhoneCallHome_5' #5 00
+aud_file34 = 'PieMan_5min' # 5 01
+aud_file56 = 'HauntedHouse_5min' #5
 
 
 # if runNum == (0):
@@ -230,8 +233,8 @@ MR_settings = {
 
 
 # # all Psychopy stimuli need to be loaded onto a window
-# win = visual.Window(fullscr=True, screen=1, color=(-1,-1,-1))
-win = visual.Window(fullscr=False, screen=1, color=(-1,-1,-1)) #For testing!!!
+win = visual.Window(fullscr=True, screen=1, color=(-1,-1,-1))
+# win = visual.Window(fullscr=False, screen=1, color=(-1,-1,-1)) #For testing!!!
 
 print('audio loaded')
 

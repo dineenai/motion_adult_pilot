@@ -53,8 +53,8 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
     # Is there any advantage t ousing global clock vs trial clock - such as syncing with scanner?
 
     #### NB remember to revert to 'Scan' for scan... ####
-    vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Test', wait_msg='waiting for scanner ...')
-    # vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Scan', wait_msg='waiting for scanner ...')
+    # vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Test', wait_msg='waiting for scanner ...')
+    vol = launchScan(win, MR_settings, globalClock=globalClock, mode='Scan', wait_msg='waiting for scanner ...')
 
     # Initialize components for Routine "trial"
     trialClock = core.Clock()
