@@ -18,7 +18,8 @@ from ctypes import POINTER, cast
 
 #experiment module
 # import audio_motion_adult_pilot_mar_22 # OLD
-import audio_motion_adult_pilot_14_6_22
+import audio_motion_adult_pilot_Aug_22
+# import audio_motion_adult_pilot_14_6_22
 import get_audio_clip_length 
 
 ### AUDIO ### - set for scan - not compatible with mac
@@ -269,7 +270,7 @@ while True:
 
         #  TO DO: Get duration for which an audio clip is actually played:
         # get_audio_clip_length.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info) 
-        audio_motion_adult_pilot_14_6_22.run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc,  Session_Info, subNum) 
+        audio_motion_adult_pilot_Aug_22.run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc,  Session_Info, subNum) 
 
         # Update history file for auto loading of next participantID and runNum
         _hist = pd.DataFrame({'participantID':[subNum] , 'num_runs':[runNum]})
