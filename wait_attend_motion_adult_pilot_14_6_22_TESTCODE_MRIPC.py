@@ -125,17 +125,13 @@ orders = {
     5: ['sb_axial_still', 'sb_axial_motion', 'mb_axial_still', 'mb_axial_motion', 'mb_sagit_still', 'mb_sagit_motion']
 }
 
+# run ranging from 1 --> 6
 runNum = int(runNum)
-print(runNum)
+print(f'Run Number: {runNum}')
 
 participant_order = orders[subNum%6]
-
 acquisition = participant_order[runNum -1]
-
-# run ranging from 1 --> 6
-
-print(orders[subNum%6][runNum - 1])
-print(acquisition)
+print(f'Acquisition is: {acquisition}')
 
 
 
@@ -145,6 +141,7 @@ print(acquisition)
 
 # Load Audio File depending on runNum
 
+<<<<<<< HEAD:wait_attend_motion_adult_pilot_14_6_22_TESTCODE.py
 # # # # # Short 3s Audio Clip for testing
 # # # # # # aud_filetest = 'CantinaBand3.wav'
 aud_file12 = 'CantinaBand3.wav'
@@ -158,6 +155,17 @@ aud_file56 = 'CantinaBand3.wav'
 # aud_file12 = 'PhoneCallHome_5' #5 00
 # aud_file34 = 'PieMan_5min' # 5 01
 # aud_file56 = 'HauntedHouse_5min' #5
+=======
+# Short 3s Audio Clip for testing
+aud_file12 = 'CantinaBand3.wav'
+aud_file34 = 'CantinaBand3.wav'
+aud_file56 = 'CantinaBand3.wav'
+
+# Stimuli
+# aud_file12 = 'PhoneCallHome_5min_MBC' #5 00
+# aud_file34 = 'PieMan_5min_MBC'
+# aud_file56 = 'HauntedHouse_5min_MBC' #5
+>>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a:wait_attend_motion_adult_pilot_14_6_22.py
 
 
 # if runNum == (0):
@@ -195,8 +203,8 @@ else:
 print(f'Audio file is {aud_file}') 
 
 # Only loads required audio as script is launched for each acquisition
-# This is to avoid  error in clip played run needs to be terminated/repeated and to double check that acquisition is correct
-# Runs automatically counted
+# This is to avoid  error in clip played if run needs to be terminated/repeated and to double check that acquisition is correct
+# Runs are automatically counted
 # Displays desired sequence
 
 # load audio
@@ -225,7 +233,7 @@ if not os.path.exists(audio_status_save_dir):
 MR_settings = {
     'TR': 0.656,     # duration (sec) per whole-brain volume
     # 'volumes': 455,    # number of whole-brain 3D volumes per scanning run #This is infant number - Check our data...
-    'volumes': 10,    # decreased for testing       #Numbeer does not matter for scan - will always be 6
+    'volumes': 10,    # decreased for testing       #Numbeer does not matter for scan -
     'sync': 's', # character to use as the sync timing event; assumed to come at start of a volume
     'skip': 10,       # number of volumes lacking a sync pulse at start of scan (for T1 stabilization)
     'sound': True   # in test mode: play a tone as a reminder of scanner noise
@@ -233,7 +241,14 @@ MR_settings = {
 
 
 # # all Psychopy stimuli need to be loaded onto a window
+<<<<<<< HEAD:wait_attend_motion_adult_pilot_14_6_22_TESTCODE.py
 # win = visual.Window(fullscr=True, screen=1, color=(-1,-1,-1))
+=======
+
+# Scan
+# win = visual.Window(fullscr=True, screen=1, color=(-1,-1,-1))
+# Test
+>>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a:wait_attend_motion_adult_pilot_14_6_22.py
 win = visual.Window(fullscr=False, screen=1, color=(-1,-1,-1)) #For testing!!!
 
 print('audio loaded')
