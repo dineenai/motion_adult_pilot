@@ -1,0 +1,11 @@
+Check the following are correct before running experiment
+ Correct audio clips
+ importing correct experiment module
+ Scan mode
+ Full screen
+ centre position
+ Correct metronome scaling
+ Check a and d buttons are correct
+
+If have been testing
+ delete unnecessary logs / rows from expt_history_motion_pilot.csv

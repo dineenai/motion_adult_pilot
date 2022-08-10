@@ -75,7 +75,7 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
         # pos=(0, 0), #FOR TESTING
         pos=centrepos,  #FOR SCANNING
         size=1.0, radius=1.5,
-        lineColor='red',
+        lineColor='white',
         lineWidth=6.0,
         )
     
@@ -151,14 +151,17 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
         
 
         # ACTUAL 
-        anc_learning = 18.000
+        # Remove ANC Learn Period
+        # anc_learning = 18.000
         preaudio_practice = 7.000
 
         # # TESTING
         # anc_learning = 4.000
         # preaudio_practice = 7.000
 
-        audio_delay = anc_learning + preaudio_practice
+        # Remove ANC Learn Period
+        # audio_delay = anc_learning + preaudio_practice
+        audio_delay = preaudio_practice
         
         # Stimuli Onsets
         # aud_onset = trialClock.getTime() + audio_delay 
@@ -175,8 +178,9 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
         # uses ptb clock
         audio.play(when=nextFlip+audio_delay) 
 
-        # .reset() not required as starts from ~0 
-        turn_white_timer = core.Clock()
+        # Remove ANC Learn Period
+        # # .reset() not required as starts from ~0 
+        # turn_white_timer = core.Clock()
 
         # Record audio status from next flip
         audio_status.append(audio.status)
@@ -216,9 +220,10 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
 
         while continueRoutine > 0:
 
-            # _timeToFirstFrame is in ms
-            if turn_white_timer.getTime() >=(anc_learning + _timeToFirstFrame):
-                circle.lineColor='white'
+            # Remove ANC Learn Period
+            # # _timeToFirstFrame is in ms
+            # if turn_white_timer.getTime() >=(anc_learning + _timeToFirstFrame):
+            #     circle.lineColor='white'
 
             # get current time
             t = trialClock.getTime()
