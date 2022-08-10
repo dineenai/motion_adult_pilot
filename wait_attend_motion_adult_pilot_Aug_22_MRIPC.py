@@ -4,15 +4,14 @@ import warnings
 import random
 from numpy.lib.npyio import save
 import pandas as pd
-<<<<<<< HEAD
+
+# Set hardware preferences to ensure sound plays as expected
 from psychopy import prefs
 # prefs.hardware['audio.Lib'] = []
 # MRIPC defaullt prefs: ['sounddevice', 'PTB', 'pyo', 'pygame']
 prefs.hardware['audioLib'] = ['PTB', 'sounddevice', 'pyo', 'pygame']
-=======
 
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
-#psychopy
+# prefs must be set before sound is imported
 from psychopy import visual, gui, core, sound, event
 # from psychopy.clock import wait
 from psychopy.constants import PLAYING, PAUSED, FINISHED, NOT_STARTED
@@ -24,10 +23,8 @@ from ctypes import POINTER, cast
 # from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume #re-add
 
 #experiment module
-# import audio_motion_adult_pilot_mar_22 # OLD
-import audio_motion_adult_pilot_Aug_22
-# import audio_motion_adult_pilot_14_6_22
-import get_audio_clip_length 
+import audio_motion_adult_pilot_Aug_22_MRIPC
+# import get_audio_clip_length 
 
 ### AUDIO ### - set for scan - not compatible with mac
 
@@ -39,11 +36,9 @@ import get_audio_clip_length
 # volume.SetMasterVolumeLevel(-12.0, None)
 # print("volume.GetMasterVolumeLevel(): %s" % volume.GetMasterVolumeLevel())
 
-<<<<<<< HEAD
+
 print('Check Backend:')
 print(sound.Sound)
-=======
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
 
 
 #################################################
@@ -154,27 +149,16 @@ print(f'Acquisition is: {acquisition}')
 
 # Load Audio File depending on runNum
 
-<<<<<<< HEAD
-# # # Short 3s Audio Clip for testing
-# aud_file12 = 'CantinaBand3.wav'
-# aud_file34 = 'CantinaBand3.wav'
-# aud_file56 = 'CantinaBand3.wav'
-
-# Stimuli
-aud_file12 = 'PhoneCallHome_5min_MBC' #5 00
-aud_file34 = 'PieMan_5min_MBC'
-aud_file56 = 'HauntedHouse_5min_MBC' #5
-=======
-# Short 3s Audio Clip for testing
+# # Short 3s Audio Clip for testing
 aud_file12 = 'CantinaBand3.wav'
 aud_file34 = 'CantinaBand3.wav'
 aud_file56 = 'CantinaBand3.wav'
 
-# Stimuli
+# # Stimuli
 # aud_file12 = 'PhoneCallHome_5min_MBC' #5 00
 # aud_file34 = 'PieMan_5min_MBC'
 # aud_file56 = 'HauntedHouse_5min_MBC' #5
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
+
 
 
 # if runNum == (0):
@@ -252,15 +236,9 @@ MR_settings = {
 # # all Psychopy stimuli need to be loaded onto a window
 
 # Scan
-<<<<<<< HEAD
 win = visual.Window(fullscr=True, screen=1, color=(-1,-1,-1))
 # # Test
 # win = visual.Window(fullscr=False, screen=1, color=(-1,-1,-1)) #For testing!!!
-=======
-# win = visual.Window(fullscr=True, screen=1, color=(-1,-1,-1))
-# Test
-win = visual.Window(fullscr=False, screen=1, color=(-1,-1,-1)) #For testing!!!
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
 
 print('audio loaded')
 
@@ -300,7 +278,7 @@ while True:
 
         #  TO DO: Get duration for which an audio clip is actually played:
         # get_audio_clip_length.run_trial(win, audio, aud_file, MR_settings, save_loc,  Session_Info) 
-        audio_motion_adult_pilot_Aug_22.run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc,  Session_Info, subNum) 
+        audio_motion_adult_pilot_Aug_22_MRIPC.run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc,  Session_Info, subNum) 
 
         # Update history file for auto loading of next participantID and runNum
         _hist = pd.DataFrame({'participantID':[subNum] , 'num_runs':[runNum]})

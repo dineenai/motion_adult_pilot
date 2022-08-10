@@ -72,18 +72,8 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
         win=win,
         name='circle', units='pix', 
         ori=0,
-<<<<<<< HEAD
-<<<<<<< HEAD
         # pos=(0, 0), #FOR TESTING
         pos=centrepos,  #FOR SCANNING
-=======
-        pos=(0, 0), #FOR TESTING
-        # pos=centrepos,  #FOR SCANNING
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
-=======
-        pos=(0, 0), #FOR TESTING
-        # pos=centrepos,  #FOR SCANNING
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
         size=1.0, radius=1.5,
         lineColor='red',
         lineWidth=6.0,
@@ -161,28 +151,13 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
         
 
         # ACTUAL 
-<<<<<<< HEAD
-<<<<<<< HEAD
         anc_learning = 18.000
         preaudio_practice = 7.000
 
         # # TESTING
         # anc_learning = 4.000
         # preaudio_practice = 7.000
-=======
-=======
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
-        # anc_learning = 18.000
-        # preaudio_practice = 7.000
 
-        # TESTING
-        anc_learning = 4.000
-        preaudio_practice = 7.000
-<<<<<<< HEAD
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
-=======
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
-        
         audio_delay = anc_learning + preaudio_practice
         
         # Stimuli Onsets
@@ -199,17 +174,7 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
         # Next flip is in around 15 ms
         # uses ptb clock
         audio.play(when=nextFlip+audio_delay) 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        # audio.play(when=nextFlip+audio_delay) 
-        # audio.play(secs=nextFlip+audio_delay)
-       
-=======
 
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
-=======
-
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
         # .reset() not required as starts from ~0 
         turn_white_timer = core.Clock()
 
@@ -304,8 +269,6 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
                 A = 0.2
                 fm = 1/28
 
-<<<<<<< HEAD
-<<<<<<< HEAD
                 # # Laptop Version
                 # ym = 0.15 *(sin(2 * pi * fm * t) *(cos(4 * pi * fm * t)+ 5))/(6 * fm) 
                 # yc = 200 + 1200 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
@@ -314,21 +277,6 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
                 n = subNum%6
                 ym = 0.15 * (sin(2 * pi * fm * (t + (28/6 * n))) *(cos(4 * pi * fm * (t + (28/6 * n)))+ 5))/(6 * fm)
                 yc = 50 + 250 * A * cos (2 * pi * fc * (t + (28/6 * n)) + fdelta/fm * ym  ) /3
-=======
-=======
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
-                # Laptop Version
-                ym = 0.15 *(sin(2 * pi * fm * t) *(cos(4 * pi * fm * t)+ 5))/(6 * fm) 
-                yc = 200 + 1200 * A * cos (2 * pi * fc * t + fdelta/fm * ym  ) /3
-                
-                # MRI PC
-                # n = subNum%6
-                # ym = 0.15 * (sin(2 * pi * fm * (t + (28/6 * n))) *(cos(4 * pi * fm * (t + (28/6 * n)))+ 5))/(6 * fm)
-                # yc = 50 + 250 * A * cos (2 * pi * fc * (t + (28/6 * n)) + fdelta/fm * ym  ) /3
-<<<<<<< HEAD
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
-=======
->>>>>>> fc7b53395a56eef77c7054a7617f83abbc47e16a
 
                 circle.setSize(yc, log=False)
 
