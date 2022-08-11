@@ -19,8 +19,8 @@ from psychopy.gui.qtgui import DlgFromDict
 
 #audio - try to re-add for windows - not mac compatible
 from ctypes import POINTER, cast
-# from comtypes import CLSCTX_ALL #re-add for test session...
-# from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume #re-add
+from comtypes import CLSCTX_ALL # remove for mac
+from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume # remove for mac
 
 #experiment module
 import audio_motion_adult_pilot_Aug_22_MRIPC
@@ -28,13 +28,15 @@ import audio_motion_adult_pilot_Aug_22_MRIPC
 
 ### AUDIO ### - set for scan - not compatible with mac
 
-# # set audio levels - only windows compatible            
-# devices = AudioUtilities.GetSpeakers()
-# interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
-# volume = cast(interface, POINTER(IAudioEndpointVolume))
-# volume.SetMute(0, None)
-# volume.SetMasterVolumeLevel(-12.0, None)
-# print("volume.GetMasterVolumeLevel(): %s" % volume.GetMasterVolumeLevel())
+# set audio levels - only windows compatible            
+devices = AudioUtilities.GetSpeakers()
+interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+volume = cast(interface, POINTER(IAudioEndpointVolume))
+volume.SetMute(0, None)
+# volume.SetMasterVolumeLevel(-12.0, None) #45 - infant sound level
+volume.SetMasterVolumeLevel(-3.0, None) #82 - around what 005 reported as comfortable
+# volume.SetMasterVolumeLevel(-4.0, None) #77
+print("volume.GetMasterVolumeLevel(): %s" % volume.GetMasterVolumeLevel())
 
 
 print('Check Backend:')
@@ -48,6 +50,8 @@ print(sound.Sound)
 # root directory depending on user - must contain all necessary subfolders
 if os.getlogin()=='cusacklab':
     root_dir = "C:\\Users\cusacklab\Desktop\Aine_Motion_Pilot\motion_adult_pilot"
+elif os.getlogin()=='dineenai':
+    root_dir = 'C:\\Users\dineenai\Documents\motion_adult_pilot'    
 elif os.getlogin()=='root':
     root_dir = '/Users/aine/Documents/CusackLab/robust_motion_correction_for_mri_using_dnns/pilot_paradigm/motion_adult_pilot/'
 
@@ -150,14 +154,14 @@ print(f'Acquisition is: {acquisition}')
 # Load Audio File depending on runNum
 
 # # Short 3s Audio Clip for testing
-aud_file12 = 'CantinaBand3.wav'
-aud_file34 = 'CantinaBand3.wav'
-aud_file56 = 'CantinaBand3.wav'
+# aud_file12 = 'CantinaBand3.wav'
+# aud_file34 = 'CantinaBand3.wav'
+# aud_file56 = 'CantinaBand3.wav'
 
-# # Stimuli
-# aud_file12 = 'PhoneCallHome_5min_MBC' #5 00
-# aud_file34 = 'PieMan_5min_MBC'
-# aud_file56 = 'HauntedHouse_5min_MBC' #5
+# Stimuli
+aud_file12 = 'PhoneCallHome_5min_MBC' #5 00
+aud_file34 = 'PieMan_5min_MBC'
+aud_file56 = 'HauntedHouse_5min_MBC' #5
 
 
 

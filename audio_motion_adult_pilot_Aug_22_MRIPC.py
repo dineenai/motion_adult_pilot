@@ -77,13 +77,28 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
         size=1.0, radius=1.5,
         lineColor='white',
         lineWidth=6.0,
+        fillColor=False
         )
     
     # # Convert circle to ellipse to allow stretching of the y dir?
-    # circle = visual.GratingStim(win, tex=None, mask='circle', size=(300,600), \
-    #                                   color=(1,1,1), pos=(0,0), texRes = 1024)
+    # circle = visual.GratingStim(
+    #     win=win,
+    #     name='circle',
+    #     units='pix',
+    #     ori=0,
+    #     pos=centrepos,
+    #     tex=None,
+    #     mask='circle',
+    #     size=(1,1*stretchy),
+    #     setFillColor='black',
+    #     # backColor='black',
+    #     # backRGB=(0,0,0),
+    #     color='red',
+    #     # pos=centrepos,
+    # # )
+    #     texRes = 1024)
 
-    # # NB would need to change the below to circle.setSize(yc, log=False)
+    # NB would need to change the below to circle.setSize(yc, log=False)
     # circle.setSize((yc, yc * stretchy), log=False)
 
 
@@ -283,7 +298,9 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
                 ym = 0.15 * (sin(2 * pi * fm * (t + (28/6 * n))) *(cos(4 * pi * fm * (t + (28/6 * n)))+ 5))/(6 * fm)
                 yc = 50 + 250 * A * cos (2 * pi * fc * (t + (28/6 * n)) + fdelta/fm * ym  ) /3
 
-                circle.setSize(yc, log=False)
+                circle.setSize(yc, log=False) #TEST
+                # circle.setSize((yc, yc * stretchy), log=False)
+
 
             # check if all components have finished
             if not continueRoutine:  # a component has requested a forced-end of Routine
