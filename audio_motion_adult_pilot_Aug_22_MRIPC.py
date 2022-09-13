@@ -168,7 +168,7 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
         # ACTUAL 
         # Remove ANC Learn Period
         # anc_learning = 18.000
-        preaudio_practice = 7.000
+        preaudio_practice = 15.000
 
         # # TESTING
         # anc_learning = 4.000
@@ -226,7 +226,7 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
 
         # Set Duration of Metrenome
         preaudio_met_dur = audio_delay
-        post_audio_met_dur = 5.000
+        post_audio_met_dur = 7.000
 
         # Audio duration should be accurate and is used to set the length of the visual metronome
         len_of_vis_met = preaudio_met_dur + audio_clip_dur + post_audio_met_dur
