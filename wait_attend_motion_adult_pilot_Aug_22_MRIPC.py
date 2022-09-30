@@ -232,7 +232,7 @@ MR_settings = {
     # 'volumes': 455,    # number of whole-brain 3D volumes per scanning run #This is infant number - Check our data...
     'volumes': 10,    # decreased for testing       #Numbeer does not matter for scan -
     'sync': 's', # character to use as the sync timing event; assumed to come at start of a volume
-    'skip': 10,       # number of volumes lacking a sync pulse at start of scan (for T1 stabilization)
+    'skip': 5,       # number of volumes lacking a sync pulse at start of scan (for T1 stabilization)
     'sound': True   # in test mode: play a tone as a reminder of scanner noise
     }
 
