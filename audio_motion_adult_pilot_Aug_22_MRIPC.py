@@ -343,7 +343,8 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
 
                 keys = event.getKeys()
 
-                if 'a' in keys:
+                # if 'a' in keys:
+                if 'b' in keys: 
                     # remove to record even after audio stops
                     # if audio.status == PLAYING:
                     ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}
@@ -361,7 +362,8 @@ def run_trial(win, audio, aud_file, save_aud_status_loc, MR_settings, save_loc, 
                     expt_events.to_csv(save_loc, sep='\t')
         
 
-                if 'd' in keys: #Changed from d to c - new NNL leads
+                # if 'd' in keys: #Changed from d to c - new NNL leads
+                if 'c' in keys: #Changed from c 25/11/22
                     # remove to record even after audio stops
                     # if audio.status == PLAYING:
                     ev = {'onset':None,'duration':None,'trial_type':None, 'real_time':None}

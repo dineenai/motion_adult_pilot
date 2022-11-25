@@ -117,7 +117,6 @@ runNum = Session_Info['Run #']
 
 #reset in case of manual editing in dialogue box
 _subj = Session_Info['PID']
-
 #Set output conditions
 if len(str(subNum)) == 1:
     _subj = f'00{subNum}'
